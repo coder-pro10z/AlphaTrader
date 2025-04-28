@@ -159,3 +159,21 @@ AlphaTrader/
   main.py
   README.md
   requirements.txt
+
+🛠️ Upcoming Features
+        Modular Strategy Integration
+
+        Real-Time Risk Management
+
+        Live Dashboard Analytics
+
+        Backtesting Engine
+
+        Strategy Optimization Framework
+
+        Deployment on Cloud VPS (AWS, GCP)
+
+Todo | Doing | Done
+Add Advanced Stop Loss Strategy | 🔥 Unit Test Mock Executor | Scalping + Risk Manager Done
+Integrate real Binance API | 🔥 Expand Risk Control | Mock Execution Engine Done
+Backtesting framework |  | 
