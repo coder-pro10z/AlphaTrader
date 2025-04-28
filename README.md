@@ -9,23 +9,22 @@ A Python-based crypto trading execution engine using Binance Spot and Futures AP
 ## 📚 Project Structure
 
 AlphaTrader/ 
-├── execution_engine/ 
-│ 
-├── binance_connector.py # Handles signed requests, order management 
-│ 
-├── init.py 
-│ 
-├── settings/ 
-│ 
-├── settings.py # Environment settings (dotenv based) 
-│ 
-├── main.py # Entry point to test order placement 
-│ 
-├── .env # Environment variables (private, not uploaded to GitHub) 
-├── README.md # Documentation (you are here) 
-├── requirements.txt # Project dependencies 
-├── venv/ # Virtual environment (excluded in .gitignore)
-
+ │ 
+ ├── config/ # Configurations (API keys, environment) 
+ ├── data_collector/ # Real-time market data fetcher
+ ├── indicators/ # Technical indicator calculations 
+ ├── strategies/ # Trading strategies (scalping, trend-following, etc.) 
+ ├── regime_detector/ # Market regime detection (trend or range) 
+ ├── execution_engine/ # Order execution engine 
+ ├── risk_manager/ # Risk controls 
+ ├── ui/ # Streamlit dashboard 
+ ├── utils/ # Utility functions like logger 
+ ├── backtester/ # Historical strategy backtesting (future) 
+ ├── venv/ # Virtual environment (excluded from Git) 
+ │ 
+ ├── main.py # Project entry point 
+ ├── requirements.txt # Project dependencies 
+ ├── README.md # Project documentation
 ---
 
 ## ⚙️ Architecture Overview
@@ -49,6 +48,52 @@ AlphaTrader/
 5. Handle network issues like timeout, HTTP errors safely.
 
 ---
+---
+
+## 🏗️ Core Components
+
+- **Configuration Management**: Safely load API keys and settings
+- **Data Collection**: Fetch OHLCV data in real-time
+- **Indicators**: Compute TA indicators using pandas-ta / TA-Lib
+- **Strategies**: Modular strategies (easy to add new ones)
+- **Execution Engine**: Robust, retriable order placement/cancellation
+- **Risk Manager**: Position sizing and risk control logic
+- **UI Dashboard**: Web interface using Streamlit
+- **Logger**: Centralized logging and error handling
+- **Backtester** *(coming soon)*: Historical simulation
+
+---
+
+## 📚 Libraries Used
+
+- `ccxt`
+- `pandas`
+- `pandas-ta`
+- `TA-Lib`
+- `apscheduler`
+- `fastapi`
+- `streamlit`
+- `requests`
+- `dotenv`
+- `logging`
+- `hmac`, `hashlib`, `time`, `os`, `urllib`
+
+---
+
+## 🚀 Installation
+
+```bash
+git clone https://github.com/your-username/AlphaTrader.git
+cd AlphaTrader
+
+# Setup virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# or
+venv\Scripts\activate     # Windows
+
+# Install requirements
+pip install -r requirements.txt
 
 ## 🚀 Current Progress
 
@@ -87,3 +132,30 @@ BinanceConnector
          --> _send_request() 
                  |
                  --> _sign_payload() (if needed)
+
+Project Updated Structure
+
+AlphaTrader/
+  backtester/
+    test_scalping.py
+  config/
+    settings.py
+  data_collector/
+    fetch_data.py
+  execution_engine/
+    executor.py
+    mock_executor.py
+    test_mock_executor.py
+  indicators/
+    technicals.py
+  risk_manager/
+    risk_control.py
+  strategies/
+    scalping.py
+  ui/
+    dashboard.py
+  utils/
+    logger.py
+  main.py
+  README.md
+  requirements.txt
