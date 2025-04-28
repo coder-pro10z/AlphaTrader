@@ -1,0 +1,7 @@
+ccxt
+pandas
+pandas-ta
+apscheduler
+fastapi
+streamlit
+python-dotenv
