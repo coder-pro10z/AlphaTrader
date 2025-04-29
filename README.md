@@ -365,3 +365,109 @@ These resources—official docs, libraries, community tutorials and repos—will
 [](https://www.google.com/s2/favicons?domain=https://code.visualstudio.com&sz=32)
 
 [](https://www.google.com/s2/favicons?domain=https://github.com&sz=32)
+
+
+
+### 1. **Create and Switch to New Branch**
+
+```bash
+bash
+CopyEdit
+git checkout -b realtime-integration
+
+```
+
+---
+
+### 2. **Polling Engine (Market Listener)**
+
+- [ ]  Create a new module: `data_collector/price_watcher.py`
+- [ ]  Use WebSockets (preferred) or REST polling every N seconds:
+    - Spot: `wss://testnet.binance.vision/ws/btcusdt@kline_1m`
+    - Futures: `wss://stream.binancefuture.com/ws/btcusdt@kline_1m`
+- [ ]  Include fallback to REST polling via `/api/v3/klines` or `/fapi/v1/klines`
+- [ ]  Add retry/backoff mechanism in case of dropped WebSocket connection
+
+---
+
+### 3. **Trigger Strategy Evaluation**
+
+- [ ]  When new kline data arrives:
+    - Extract closing price
+    - Pass to your strategy (e.g., `strategies/scalping.py`)
+    - Collect signal (BUY, SELL, HOLD)
+
+---
+
+### 4. **Mock Execution → Live Execution (Toggle)**
+
+- [ ]  Abstract executor behind an interface (mock vs live)
+- [ ]  Use `settings.USE_TESTNET` to route between:
+    - `execution_engine.mock_executor.MockExecutor`
+    - `execution_engine.executor.Executor` (new live class using `BinanceConnector`)
+
+---
+
+### 5. **Live Order Testing**
+
+- [ ]  Start small (0.001 BTCUSDT on testnet)
+- [ ]  Test:
+    - Market orders
+    - Cancel orders
+    - Error handling (invalid quantity, insufficient balance, etc.)
+
+---
+
+### 6. **Basic Integration Tests**
+
+- [ ]  Create `integration_tests/test_binance_connector.py`
+- [ ]  Test:
+    - Successful `place_order`
+    - Failure when keys are invalid
+    - Timeout retry logic
+
+---
+
+### 7. **Debugging & Logging**
+
+- [ ]  Use `utils/logger.py` to:
+    - Log request payloads and responses
+    - Highlight retries and failed attempts
+    - Color-code trade success/failure
+
+---
+
+### 8. **Safety & Limits**
+
+- [ ]  Implement a kill switch (e.g., max daily trades)
+- [ ]  Log and cap risk per trade using `risk_manager/risk_control.py`
+- [ ]  Add timestamped logs for auditing
+
+---
+
+### 🔧 Suggested Libraries for Stability
+
+- `websocket-client` or `websockets` for Binance streams
+- `tenacity` for retries with exponential backoff
+- `pytest` for test scaffolding
+- `rich` for better console debugging and formatting
+
+---
+
+### 📘 Reference Sources
+
+- Binance API Docs:
+    
+    https://binance-docs.github.io/apidocs/
+    
+- Testnet Account & Streams:
+    
+    https://testnet.binancefuture.com/
+    
+- Real-time crypto bots:
+    
+    Check GitHub: `freqtrade`, `ccxt`, `jesse`, `ta-lib` for strategy inspiration
+    
+- Logging/Debugging:
+    
+    Use [Rich logging](https://rich.readthedocs.io/en/stable/logging.html) or [Loguru](https://github.com/Delgan/loguru)

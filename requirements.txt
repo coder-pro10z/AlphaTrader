@@ -5,3 +5,6 @@ apscheduler
 fastapi
 streamlit
 python-dotenv
+websocket-client
+requests
+numpy

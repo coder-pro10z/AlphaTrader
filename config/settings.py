@@ -6,6 +6,7 @@ load_dotenv()
 
 # General settings
 USE_TESTNET = os.getenv("USE_TESTNET", "False").lower() == "true"
+DEFAULT_TRADE_SYMBOL = os.getenv("DEFAULT_TRADE_SYMBOL")
 
 # Spot account keys
 SPOT_API_KEY = os.getenv("BINANCE_SPOT_API_KEY")
