@@ -99,7 +99,7 @@ STREAM_URL = (
 )
 
 # executor = BinanceConnector("futures")  # Choose 'spot' or 'futures' accordingly
-executor = PaperTradingEngine(starting_balance=1000.0, symbol="btcusdt")
+executor = PaperTradingEngine(starting_balance=1000.0, symbol=SYMBOL)
 price_window = deque(maxlen=20)  # Stores last 20 closing prices
 
 
