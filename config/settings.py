@@ -16,6 +16,7 @@ SPOT_API_SECRET = os.getenv("BINANCE_SPOT_API_SECRET")
 FUTURES_API_KEY = os.getenv("FUTURES_API_KEY")
 FUTURES_API_SECRET = os.getenv("FUTURES_API_SECRET")
 
+EXCHANGE_TYPE = os.getenv("EXCHANGE_TYPE")
 # Base URLs depending on environment
 if USE_TESTNET:
     SPOT_BASE_URL = "https://testnet.binance.vision"
@@ -23,3 +24,7 @@ if USE_TESTNET:
 else:
     SPOT_BASE_URL = "https://api.binance.com"
     FUTURES_BASE_URL = "https://fapi.binance.com"
+
+
+# Add at the bottom:
+FALLBACK_PRICE = 0.0
