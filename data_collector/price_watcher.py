@@ -1,4 +1,10 @@
-# data_collector/price_watcher.py
+import sys
+import os
+
+# Add the root path (one level up from 'backtester') to Python path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+)  # data_collector/price_watcher.py
 
 # import json
 # import threading
@@ -79,7 +85,9 @@ from strategies.scalping import find_scalping_opportunity
 from utils.logger import log_trade
 
 # from execution_engine.executor import Executor
-from execution_engine.binance_connector import BinanceConnector
+# from execution_engine.binance_connector import BinanceConnector
+from paper_trading.paper_trader import PaperTradingEngine
+
 
 from config import settings
 
@@ -90,7 +98,8 @@ STREAM_URL = (
     else f"wss://fstream.binance.com/ws/{SYMBOL}@kline_1m"
 )
 
-executor = BinanceConnector("futures")  # Choose 'spot' or 'futures' accordingly
+# executor = BinanceConnector("futures")  # Choose 'spot' or 'futures' accordingly
+executor = PaperTradingEngine(starting_balance=1000.0, symbol="btcusdt")
 price_window = deque(maxlen=20)  # Stores last 20 closing prices
 
 
