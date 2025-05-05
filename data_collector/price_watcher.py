@@ -1,5 +1,6 @@
 import sys
 import os
+from data_collector import stream
 
 # Add the root path (one level up from 'backtester') to Python path
 sys.path.append(
@@ -191,11 +192,14 @@ def watch_and_trade():
                 close_price = price_window[-1]
 
                 if signal in ["BUY", "SELL"]:
+                    stream.latest_signal = signal
                     log_event(f"[SIGNAL] {signal} at {close_price}")
                     quantity = 0.001
                     side = "BUY" if signal == "BUY" else "SELL"
                     log_trade(signal, SYMBOL, close_price, quantity)
                     executor.place_order(SYMBOL, side, "MARKET", quantity)
+                else:
+                    stream.latest_signal = "HOLD"
 
 
 if __name__ == "__main__":

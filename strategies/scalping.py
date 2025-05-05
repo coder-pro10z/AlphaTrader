@@ -55,23 +55,24 @@
 #         return "BUY"
 #     elif df['sma_5'].iloc[-2] > df['sma_10'].iloc[-2] and df['sma_5'].iloc[-1] < df['sma_10'].iloc[-1]:
 #         return "SELL"
-    
+
 #     return None
 
 import pandas as pd
 
+
 def find_scalping_opportunity(df: pd.DataFrame) -> str | None:
-    if 'close' not in df.columns or len(df) < 10:
+    if "close" not in df.columns or len(df) < 10:
         print("⛔ Not enough data or missing 'close' column.")
         return None
 
-    df['sma_5'] = df['close'].rolling(window=5).mean()
-    df['sma_10'] = df['close'].rolling(window=10).mean()
+    df["sma_5"] = df["close"].rolling(window=5).mean()
+    df["sma_10"] = df["close"].rolling(window=10).mean()
 
-    prev_sma5 = df['sma_5'].iloc[-2]
-    prev_sma10 = df['sma_10'].iloc[-2]
-    curr_sma5 = df['sma_5'].iloc[-1]
-    curr_sma10 = df['sma_10'].iloc[-1]
+    prev_sma5 = df["sma_5"].iloc[-2]
+    prev_sma10 = df["sma_10"].iloc[-2]
+    curr_sma5 = df["sma_5"].iloc[-1]
+    curr_sma10 = df["sma_10"].iloc[-1]
 
     print("Prev SMA5:", prev_sma5, "Prev SMA10:", prev_sma10)
     print("Curr SMA5:", curr_sma5, "Curr SMA10:", curr_sma10)
@@ -82,5 +83,7 @@ def find_scalping_opportunity(df: pd.DataFrame) -> str | None:
             return "BUY"
         elif prev_sma5 > prev_sma10 and curr_sma5 <= curr_sma10:
             return "SELL"
+        else:
+            return "HOLD"
 
     return None
